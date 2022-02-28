@@ -13,14 +13,14 @@ def home(request):
                   {'Realestate': home})
 
 
-@login_required
+#  @login_required
 def customer_list(request):
     customer = Customer.objects.filter(created_date__lte=timezone.now())
     return render(request, 'Realestate/customer_list.html',
                   {'customers': customer})
 
 
-@login_required
+#  @login_required
 def customer_edit(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     if request.method == "POST":
@@ -39,7 +39,7 @@ def customer_edit(request, pk):
     return render(request, 'Realestate/customer_edit.html', {'form': form})
 
 
-@login_required
+#  @login_required
 def customer_new(request):
     if request.method == "POST":
         form = CustomerForm(request.POST)
@@ -57,21 +57,21 @@ def customer_new(request):
 
 
 
-@login_required
+#  @login_required
 def customer_delete(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     customer.delete()
     return redirect('Realestate:customer_list')
 
 
-@login_required
+#  @login_required
 def property_list(request):
     property = Property.objects.filter(created_date__lte=timezone.now())
     return render(request, 'Realestate/property_list.html',
                   {'property': property})
 
 
-@login_required
+#  @login_required
 def property_new(request):
     if request.method == "POST":
         form = PropertyForm(request.POST)
@@ -88,7 +88,7 @@ def property_new(request):
     return render(request, 'Realestate/property_new.html', {'form': form})
 
 
-@login_required
+#  @login_required
 def property_edit(request, pk):
     property = get_object_or_404(Property, pk=pk)
     if request.method == "POST":
@@ -106,21 +106,21 @@ def property_edit(request, pk):
     return render(request, 'Realestate/property_edit.html', {'form': form})
 
 
-@login_required
+#  @login_required
 def property_delete(request,pk):
     property = get_object_or_404(Property, pk=pk)
     property.delete()
     return redirect('Realestate:property_list')
 
 
-@login_required
+#  @login_required
 def liens_list(request):
     liens = LienParcels.objects.filter(created_date__lte=timezone.now())
     return render(request, 'Realestate/liens_list.html',
                   {'liens': liens})
 
 
-@login_required
+#  @login_required
 def liens_edit(request, pk):
     liens = get_object_or_404(LienParcels, pk=pk)
     if request.method == "POST":
@@ -138,14 +138,14 @@ def liens_edit(request, pk):
     return render(request, 'Realestate/liens_edit.html', {'form': form})
 
 
-@login_required
+#  @login_required
 def liens_delete(request, pk):
     liens = get_object_or_404(LienParcels, pk=pk)
     liens.delete()
     return redirect('Realestate:liens_list')
 
 
-@login_required
+#  @login_required
 def liens_new(request):
     if request.method == "POST":
         form = LiensForm(request.POST)

@@ -1,9 +1,14 @@
-from django.shortcuts import render
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import authenticate, login, logout
 from .models import *
 from .forms import *
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
 
 now = timezone.now()
 
@@ -11,6 +16,12 @@ now = timezone.now()
 def home(request):
     return render(request, 'Realestate/home.html',
                   {'Realestate': home})
+
+
+class SignUp(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = "registration/signup.html"
 
 
 #  @login_required
@@ -54,7 +65,6 @@ def customer_new(request):
         form = CustomerForm()
         # print("Else")
     return render(request, 'Realestate/customer_new.html', {'form': form})
-
 
 
 #  @login_required
@@ -107,7 +117,7 @@ def property_edit(request, pk):
 
 
 #  @login_required
-def property_delete(request,pk):
+def property_delete(request, pk):
     property = get_object_or_404(Property, pk=pk)
     property.delete()
     return redirect('Realestate:property_list')
